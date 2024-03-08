@@ -1,0 +1,68 @@
+.ContainerRegisterMajor{
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-image: url(/RegisterImage.jpg);
+ }
+ .ContainerRegisterSecondary{
+    width: 70vh;
+    height: 60vh;
+    color: aliceblue;
+ }
+ .TitleRegister {
+    display: grid;
+    text-align: center;
+    padding: 15px;
+    height: 10vh;
+    background-color: rgba(228, 228, 228, 0.386);
+    border-radius: 20px 0px 20px 0px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); /* Sombras con color negro */
+}
+
+.FormRegister {
+    width: 100%;
+    height: 50vh;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #21302f80;
+    text-align: center;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); /* Sombras con otro color (rojo en este ejemplo) */
+}
+
+.FormRegister form input {
+    padding: 10px;
+    margin: 5px;
+    width: 45vh;
+    border: 0px;
+    background-color: rgba(255, 255, 255, 0.189);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    text-align: center;
+}
+
+/* Estilo del placeholder */
+.FormRegister form input::placeholder {
+    color: #fff; /* Color del placeholder */
+    font-family: "IBM Plex Sans", sans-serif;
+    font-size: medium;
+}
+
+.FormRegister form button {
+    padding: 10px;
+    margin: 5px;
+    border: 0px;
+    border-radius: 15px;
+    color: #fff;
+    background-color: rgba(255, 255, 255, 0.189);
+}
+
+.FormRegister form button:hover {
+    background-color: darkgreen;
+}
+
+.FormRegister form h5:hover {
+    color: rgba(0, 187, 255, 0.495);
+}
