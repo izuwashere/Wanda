@@ -1,5 +1,7 @@
 import React from 'react'
 import '../Styles/Footer.css';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faFacebook, faInstagram, faTwitter, faYoutube } from '@fortawesome/free-brands-svg-icons';
 
 const Fotoer = () => {
   return (
@@ -20,10 +22,10 @@ const Fotoer = () => {
               <div className="box">
                 <h2>SIGUENOS</h2>
                 <div className="red-social">
-                  <a href="#" className='fa fa-facebook'>f</a>
-                  <a href="#" className='fa fa-instagram'>i</a>
-                  <a href="#" className='fa fa-twitter'>t</a>
-                  <a href="#" className='fa fa-youtube'>y</a>
+                  <a href="#" className='fa fa-facebook'><FontAwesomeIcon icon={faFacebook} /></a>
+                  <a href="#" className='fa fa-instagram'><FontAwesomeIcon icon={faInstagram}/></a>
+                  <a href="#" className='fa fa-twitter'><FontAwesomeIcon icon={faTwitter}/></a>
+                  <a href="#" className='fa fa-youtube'><FontAwesomeIcon icon={faYoutube}/></a>
                 </div>
               </div>
           </div>
