@@ -10,21 +10,21 @@ const Navbar = () => {
         <nav className="navbar">
             <img src="/logols.png" alt="" />
             <ul className="left-list">
-                <li className="lista-1">
+                <ul className="lista-1">
                             <li><NavLink to="/">Inicio</NavLink></li>
                             <li><NavLink to="/Products">Productos</NavLink></li>
                             <li><NavLink to="#">Mi carrito</NavLink></li>
-                </li>
+                </ul>
             </ul>
             {isAuthen ? (
                             <>
                                 {/* Aquí puedes colocar los elementos que deseas mostrar cuando el usuario esté autenticado */}
                                 <ul className="right-list">
-                                    <li><NavLink to="/UserCrud">Crud Usuario</NavLink></li>
-                                    <li><NavLink to="/ProductCrud">Crud producto</NavLink></li>
-                                    <li><NavLink to="/SaleCrud">Crud venta</NavLink></li>
-                                    <li><NavLink to="/CategoryCrud">Crud categoria</NavLink></li>
-                                    <li><NavLink to="/">Cerrar sesión</NavLink></li>
+                                    <NavLink to="/UserCrud">Crud Usuario</NavLink>
+                                    <NavLink to="/ProductCrud">Crud producto</NavLink>
+                                    <NavLink to="/SaleCrud">Crud venta</NavLink>
+                                    <NavLink to="/CategoryCrud">Crud categoria</NavLink>
+                                    <NavLink to="/">Cerrar sesión</NavLink>
                                 </ul>
                             </>
                         ) : (
