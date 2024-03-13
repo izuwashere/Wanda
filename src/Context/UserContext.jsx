@@ -24,11 +24,22 @@ export const UserProvider = ({ children }) => {
         }
     }
 
+    // para cuando se solucione problema de tokens
+
+    // const _postUser = async (user) => {
+    //     try {
+    //         const res = await RegisterRequest(user);
+    //         await _getUsers();
+    //         return res.data
+    //     } catch (error) {
+    //         console.log(error)
+    //     }
+    // }
+
     const _putUser = async (userId, data) => {
         try {
             const res = await updateUser(userId, data);
             await listUsers();
-            console.log()
             return res.data
         } catch (error) {
             console.log(error)
@@ -45,7 +56,7 @@ export const UserProvider = ({ children }) => {
     }   
 
     return (
-        <UserContext.Provider value={{ _getUsers, _putUser, _deleteUser, users }}>
+        <UserContext.Provider value={{ _getUsers ,_putUser, _deleteUser, users }}>
             {children}  
         </UserContext.Provider>
     )

@@ -10,30 +10,33 @@ import Footer from './components/Footer';
 import NoFound from './components/Pages/NoFound';
 import ProductCrud from './components/Admin/ProductCrud';
 import DetailCrud from './components/Admin/DetailCrud';
-import CategoryCrud from './components/Admin/CategoryCrud';
 import SaleCrud from './components/Admin/SaleCrud';
-import "./App.css";
-import UserCrud from './components/Admin/users/UserCrud';
+import CategoryCrud from './components/Admin/categoryPages/CategoryCrud';
 import { UserProvider } from './Context/UserContext';
+import UserCrud from './components/Admin/UserCrud';
+import "./App.css";
+import { CategoryProvider } from './Context/CategoryContext';
 function App() {
 
   return (
     <AuthProvider>
       <UserProvider>
-        <Navbar />
-        <Routes>
-          <Route index element={<Home />} />
-          <Route path='/Register' element={<Register />} />
-          <Route path='/Login' element={<Login />} />
-          <Route path='/Products' element={<Products />} />
-          <Route path='/UserCrud' element={<UserCrud />} />
-          <Route path='/ProductCrud' element={<ProductCrud />} />
-          <Route path='/DetailCrud' element={<DetailCrud />} />
-          <Route path='/CategoryCrud' element={<CategoryCrud />} />
-          <Route path='/SaleCrud' element={<SaleCrud />} />
-          <Route path='*' element={<NoFound />} />
-        </Routes>
-        <Footer />
+        <CategoryProvider>
+          <Navbar />
+          <Routes>
+            <Route index element={<Home />} />
+            <Route path='/Register' element={<Register />} />
+            <Route path='/Login' element={<Login />} />
+            <Route path='/Products' element={<Products />} />
+            <Route path='/UserCrud' element={<UserCrud />} />
+            <Route path='/ProductCrud' element={<ProductCrud />} />
+            <Route path='/DetailCrud' element={<DetailCrud />} />
+            <Route path='/CategoryCrud' element={<CategoryCrud />} />
+            <Route path='/SaleCrud' element={<SaleCrud />} />
+            <Route path='*' element={<NoFound />} />
+          </Routes>
+          <Footer />
+        </CategoryProvider>
       </UserProvider>
     </AuthProvider>
   )

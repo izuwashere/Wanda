@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import "../../../Styles/Crud.css";
-import { useUser } from '../../../Context/UserContext';
+import "../../Styles/Crud.css";
+import { useUser } from '../../Context/UserContext';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faPenToSquare, faTrash } from '@fortawesome/free-solid-svg-icons';
 
 const UserCrud = () => {
     const [users, setUsers] = useState([]);
@@ -18,8 +20,8 @@ const UserCrud = () => {
             console.log('Error al listar los usuarios:', error);
         }
     };
+    
     useEffect(() => {
-
         fetchData();
     }, []);
 
@@ -27,7 +29,7 @@ const UserCrud = () => {
     const handleDeleteUser = async (userId) => {
         try {
             const res = await _deleteUser(userId);
-            setUsers(res.data);
+            fetchData();
         } catch (error) {
             console.log('Error al eliminar el usuario:', error);
         }
@@ -45,9 +47,6 @@ const UserCrud = () => {
         setShowModal(true);
     };
 
-    const closeModal = () => {
-        setShowModal(false);
-    };
 
     const handleChange = (e) => {
         setFormData({
@@ -68,11 +67,13 @@ const UserCrud = () => {
             closeModal();
         } catch (error) {
             console.log(error);
-            // Manejo de errores: mostrar mensaje al usuario
         }
     };
-    if (formData !== undefined)
-        console.log(formData)
+
+    const closeModal = () => {
+        setShowModal(false);
+    };
+
     return (
         <div className="containerUCMajor">
             <div className="TableCrud">
@@ -84,10 +85,9 @@ const UserCrud = () => {
                         <table>
                             <thead>
                                 <tr>
-                                    <th>ID</th>
+                                    <th>Nombre</th>
                                     <th>TELEFONO</th>
                                     <th>CORREO</th>
-                                    <th>DIRECCION</th>
                                     <th>ROL</th>
                                     <th>ACCIONES</th>
                                 </tr>
@@ -95,14 +95,13 @@ const UserCrud = () => {
                             <tbody>
                                 {users && users.map(user => (
                                     <tr key={user.idUser}>
-                                        <td>{user.name}</td>
-                                        <td>{user.phone}</td>
-                                        <td>{user.username}</td>
-                                        <td>{user.address}</td>
-                                        <td>{user.rol}</td>
+                                        <td class="truncate-text">{user.name}</td>
+                                        <td class="truncate-text">{user.phone}</td>
+                                        <td class="truncate-text">{user.username}</td>
+                                        <td class="truncate-text">{user.rol}</td>
                                         <td>
-                                            <button className='dele' onClick={() => handleDeleteUser(user.idUser)}>Eliminar</button>
-                                            <button className='upda' onClick={() => handleModify(user)}>Actualizar</button>
+                                            <button className='dele' onClick={() => handleDeleteUser(user.idUser)}><FontAwesomeIcon icon={faTrash} className='papelera' /></button>
+                                            <button className='upda' onClick={() => handleModify(user)}><FontAwesomeIcon icon={faPenToSquare} className='edit' /></button>
                                         </td>
                                     </tr>
                                 ))}

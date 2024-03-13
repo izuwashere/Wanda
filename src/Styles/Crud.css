@@ -1,83 +1,113 @@
-.containerUCMajor{
-   width: 100%;
-   display: grid;
-   align-items: center;
-   justify-content: center;
-   text-align: center;
-   background-color: rgb(117, 117, 117);
+.containerUCMajor {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  place-content: center;
+  background-color: rgba(139, 139, 139, 0.307);
+  padding: 7rem 0;
 }
-.TableCrud{
-   padding: 90px 3% 8% 3%;
-   width: 90%;
-   height: 100vh;
+
+.TableCrud {
+
+  min-width: auto;
+  background-color: rgb(255, 255, 255);
+  padding: .7rem;
+  border: none;
+  border-radius: 10px;
 }
+
 .containerUCSecondary {
-   background-color: #f0f0f0;
-   border-radius: 10px;
-   padding: 20px;
-   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-   font-size: 12px;
-   
- }
- 
- .title {
-   margin-bottom: 20px;
- }
- 
- .title h2 {
-   font-size: 24px;
-   color: #333;
- }
- 
- .table {
-   overflow-x: auto;
- }
- 
- table {
-   width: 100%;
-   border-collapse: collapse;
- }
- 
- th,
- td {
-  padding: 7px;
-  text-align: center;
-  border-bottom: 1px solid #000;
- }
- 
- th {
-   background-color: #f0f0f0;
- }
- 
- tr:hover {
-   background-color: #f9f9f9;
- }
- 
- button {
-   width: 100px;
-   padding: 8px 12px;
-   margin: 3px;
-   border: none;
-   color: #fff;
-   border-radius: 5px;
-   cursor: pointer;
-   background-color: #007bff;
- }
+  background-color: rgba(202, 202, 202, 0.486);
+  padding: 1rem;
+  border-radius: 5px;
+}
+.title{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 
- .dele{ 
-   background-color: #ff0000; 
- }
- .upda{
-  background-color: #007bff;
- }
- 
- button:hover {
-   background-color: #008fb3;
- }
- 
- button:last-child {
-   margin-right: 0;
- }
- 
+.doble-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 
+}
+h2 {
+  font-size: 1.2rem;
+  font-weight: 500;
+}
 
+.agregar {
+  width: 80px;
+  height: 1.9rem;
+  border: none;
+  border-radius: 5px;
+  background-color: #2b9923c7;
+  font-size: .8rem;
+  font-weight: 500;
+}
+
+table {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  margin-top: 1rem;
+  max-height: 30rem;
+  overflow: auto;
+  justify-content: end;
+}
+
+thead tr {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #2e353c;
+  color: #ffff;
+  padding: .6rem;
+  border-radius: 5px 5px 0 0 ;
+  gap: 2rem;
+}
+tbody{
+  display: flex;
+  flex-direction: column;
+  overflow: auto;
+  background-color: #c3c3c3;
+  border-radius: 0  0 5px 5px;
+}
+
+tbody tr {
+  display: flex;
+  align-items: start;
+  justify-content: space-between;
+  align-items: center;
+  gap: 2rem;
+  padding: .2rem .6rem;
+
+  .acciones {
+    display: flex;
+    gap: .5rem;
+  }
+}
+p{
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.papelera{
+  color: #ff000097;
+}
+button{
+  background-color: transparent;
+}
+.edit{
+  color: #350fa790;
+} 
+
+/* Sacado de GPT porque me dio pereza xD*/
+.truncate-text {
+  max-width: 100px; /* Establecer el ancho máximo que desees */
+  white-space: nowrap; /* Impedir el desbordamiento de texto a una nueva línea */
+  overflow: hidden; /* Ocultar el texto que exceda el ancho máximo */
+  text-overflow: ellipsis; /* Mostrar puntos suspensivos (...) para indicar texto truncado */
+}
