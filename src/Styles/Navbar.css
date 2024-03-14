@@ -1,0 +1,99 @@
+.navbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  padding: 10px 20px 20px 20px;
+  backdrop-filter: blur(5px) brightness(1.2);
+  text-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
+  color: rgb(255, 255, 255);
+  font-size: 16px;
+  background-color: #2b585565;
+}
+
+.navbar img{
+  width: 10;
+  height: 10vh;
+  border-radius: 50%;
+  margin: 0px 10px 0px 0px;
+}
+
+.left-list {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+.left-list li {
+  display: inline-block;
+  margin-left: 20px;
+}
+
+.left-list select {
+  background-color: rgba(255, 255, 255, 0.13);
+  padding: 12px;
+  color: #fff;
+} 
+
+.left-list select option {
+  color: #fff;
+  background-color: cadetblue;
+  padding: 12px; /* Ajusta el padding según sea necesario */
+  border: none; /* Opcional: quita el borde de las opciones si no lo deseas */
+}
+
+.right-list {
+  list-style-type: none;
+  margin: 0;
+  padding-left: 0;
+  ;
+}
+
+.right-list li {
+  display: inline-block;
+  margin-right: 20px;
+}
+
+.right-list li a.active {
+  color: rgb(255, 255, 255);
+}
+
+.search,
+.menu {
+  background: none;
+  border: none;
+  font-size: 16px;
+  color: white;
+  cursor: pointer;
+}
+
+.search::before {
+  content: '';
+  display: inline-block;
+  width: 2rem;
+  height: 2rem;
+  background: center/1.3rem 1.3rem no-repeat url("data:image/svg+xml, %3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 15.17 14.81%27 width=%2715.17%27 height=%2714.81%27%3E%3Cpath d=%27M6,.67A5.34,5.34,0,1,1,.67,6,5.33,5.33,0,0,1,6,.67ZM9.86,9.58l4.85,4.75Z%27 fill=%27none%27 stroke=%27%23fff%27 stroke-width=%271.33%27/%3E%3C/svg%3E");
+}
+
+.menu::before {
+  content: url("data:image/svg+xml, %3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 24.8 18.92%27 width=%2724.8%27 height=%2718.92%27%3E%3Cpath d=%27M23.8,9.46H1m22.8,8.46H1M23.8,1H1%27 fill=%27none%27 stroke=%27%23fff%27 stroke-linecap=%27round%27 stroke-width=%272%27/%3E%3C/svg%3E");
+}
+
+/* areglar */
+@media  (min-width: 640px) {
+  .left-list img {
+    width: 5vh;
+    height: auto;
+  }
+  .right-list {
+    display: flex;
+    text-align: center;
+    padding: 0%;
+    margin: 0%;
+  }
+
+
+}
