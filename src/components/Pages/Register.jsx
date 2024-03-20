@@ -3,19 +3,25 @@ import { NavLink } from "react-router-dom";
 import Cookies from "js-cookie";
 import { useForm } from 'react-hook-form';
 import { RegisterRequest } from '../../Services/user';
-import { useAuth } from '../../Context/AuthContext';
+import { useAuth} from '../../Context/AuthContext';
 import "../../Styles/Register.css";
+import { useState } from "react";
 
 const Register = () => {
   const { register, handleSubmit, formState: { errors } } = useForm();
-    const { setIsAuthen, isAuthen } = useAuth();
+  //Validar user y setear
+    const { setIsAuthen, isAuthen,setUser } = useAuth();
+    //Validar user y setear
 
     const onSubmit = async (data) => {
         try {
             const res = await RegisterRequest(data);
             Cookies.set("token", res.data?.token);
             console.log(res.data?.token);
+            //Vericar al user y setar al user
             setIsAuthen(true);
+            setUser(res.data?.user);
+            //Vericar al user y setar al user
         } catch (error) {
             console.error(error);
         }
@@ -42,6 +48,7 @@ const Register = () => {
             {
               isAuthen && (
               <h5>¡Registro exitoso! Ya estás autenticado.</h5>
+              
               )
             }
             <br />

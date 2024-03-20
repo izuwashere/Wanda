@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { createCategory, listCategory, updateCategory, deleteCategory} from '../../../Services/category';
+import { createSale, listSale, updateSale, deleteSale } from '../../../Services/sale';
 import { Table, TableContainer, TableHead, TableCell, TableBody, TableRow, Modal, Button, TextField } from '@material-ui/core';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPenToSquare, faTrash } from '@fortawesome/free-solid-svg-icons';
@@ -26,14 +26,17 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-const CategoryCrud = () => {
+const SaleCrud = () => {
     const styles= useStyles();
-    const [categories, setCategories] = useState([]);
+    const [sales, setSales] = useState([]);
     const [modalInsert, setModalInsert] = useState(false);
     const [modalEdit, setModalEdit] = useState(false);
-    const [addedCategories, setAddedCategories] = useState([]);
+    const [addedSales, setAddedSales] = useState([]);
     const [consoleSelect, setConsoleSelect] = useState({
-        name: ''
+        name: '',
+        total:'',
+        date:'',
+        idUser:''
     });
     const [idSelect, setIdSelect] = useState(null);
     const handleChange = (e) => {
@@ -45,27 +48,33 @@ const CategoryCrud = () => {
     };
    
 
-    //Crear Categoria
-    const handleAgregarCategoria = async () => {
+    //Crear Venta
+    const handleAgregarSales = async () => {
         try {
-            const res = await createCategory(consoleSelect);
-            setAddedCategories(prevAddedCategories => [...prevAddedCategories, consoleSelect]);
-            setConsoleSelect({ name: '' });
+            const res = await createSale(consoleSelect);
+            setAddedSales(prevAddedSales => [...prevAddedSales, consoleSelect]);
+            setConsoleSelect({ name: '',total:'',date:'',idUser:'' });
             openCloseModalInsert();
             fetchData();
             return res;
         } catch (error) {
-            console.error('Error al agregar la categoría: ', error);
+            console.error('Error al agregar la venta: ', error);
         }
     };
 
     const bodyInsert = (
         <div className={styles.modal}>
-            <h3>Agregar nueva categoría</h3>
-            <TextField name="name" className={styles.inputMaterial} label="Nombre de Categoría" onChange={handleChange}/>
+            <h3>Agregar nueva venta</h3>
+            <TextField name="name" className={styles.inputMaterial} label="Nombre  de la venta" onChange={handleChange}/>
+            <br />
+            <TextField name="total" className={styles.inputMaterial} label="Total de la venta" onChange={handleChange}/>
+            <br />
+            <TextField name="date" className={styles.inputMaterial} label="Fecha de venta" onChange={handleChange}/>
+            <br />
+            <TextField name="idUser" className={styles.inputMaterial} label="Id usuario" onChange={handleChange}/>
             <br />
             <div align="right">
-                <Button color='primary' onClick={handleAgregarCategoria}>Insertar</Button>
+                <Button color='primary' onClick={handleAgregarSales}>Agregar</Button>
                 <Button onClick={() => openCloseModalInsert()}>Cancelar</Button>
             </div>
         </div>
@@ -74,10 +83,10 @@ const CategoryCrud = () => {
     //ListarCategoria 
     const fetchData = async () => {
         try {
-            const response = await listCategory();
-            setCategories(response.data);
+            const response = await listSale();
+            setSales(response.data);
         } catch (error) {
-            console.log('Error al listar los Categoría:', error);
+            console.log('Error al listar los ventas:', error);
         }
     };
 
@@ -86,21 +95,20 @@ const CategoryCrud = () => {
     }, []);
     
     //Eliminar categoria
-    const handleDeleteCategories = async (id) => {
+    const handleDeleteSales = async (id) => {
         try {
-            const res = await deleteCategory(id);
+            const res = await deleteSale(id);
             fetchData();
-            console.log(id)
             return res;
         } catch (error) {
-            console.log('Error al eliminar la categoria:', error);
+            console.log('Error al eliminar la Venta:', error);
         }
     };
     
     //Editar Categoria
     const handleModify = async () => {
     try {
-        await updateCategory(idSelect, consoleSelect);
+        await updateSale(idSelect, consoleSelect);
         fetchData();
         openCloseModalEdit();
     } catch (error) {
@@ -109,22 +117,29 @@ const CategoryCrud = () => {
     };
 
 
-    const selectconsole=(category, casee)=>{
-        setConsoleSelect(category);
-        setIdSelect(category.idCategory);
+    const selectconsole=(sale, casee)=>{
+        setConsoleSelect({
+            ...sale,
+            idUser: sale.user.idUser
+        });
+        setIdSelect(sale.idSale);
         casee === 'Edit' && setModalEdit(true)
     }
    
     const bodyEdit = (
         <div className={styles.modal}>
             <h3>Editar categoría</h3>
-            <TextField name="name" className={styles.inputMaterial} label="Nombre de Categoría" onChange={handleChange} value={consoleSelect && consoleSelect.name}/>
+            <TextField name="name" className={styles.inputMaterial} label="Nombre de la venta" onChange={handleChange} value={consoleSelect && consoleSelect.name}/>
+            <br/>
+            <TextField name="date" className={styles.inputMaterial} label="Fecha de venta" onChange={handleChange} value={consoleSelect && consoleSelect.date}/>
+            <br/>
+            <TextField name="total" className={styles.inputMaterial} label="Id del usuario" onChange={handleChange} value={consoleSelect && consoleSelect.total}/>
             <br />
-            <div align="right">
+            <TextField name="total" className={styles.inputMaterial} label="Id del usuario" onChange={handleChange} value={consoleSelect && consoleSelect.idUser}/>
+            <br />
                 <Button color='primary' onClick={handleModify}>Editar</Button>
                 <Button onClick={() => openCloseModalEdit()}>Cancelar</Button>
             </div>
-        </div>
     );
 
     //modales
@@ -145,19 +160,25 @@ const CategoryCrud = () => {
                     <Table>
                         <TableHead>
                             <TableRow>
-                                <TableCell>ID CATEGORÍA</TableCell>
-                                <TableCell>NOMBRE DE CATEGORÍA</TableCell>
+                                <TableCell>ID VENTA</TableCell>
+                                <TableCell>NOMBRE</TableCell>
+                                <TableCell>TOTAL</TableCell>
+                                <TableCell>FECHA</TableCell>
+                                <TableCell>ID USUARIO</TableCell>
                                 <TableCell>ACCIONES</TableCell>
                             </TableRow>
                         </TableHead>
                         <TableBody>
-                            {categories.map(category => ( 
-                                <TableRow key={category.idCategory}>
-                                    <TableCell>{category.idCategory}</TableCell>
-                                    <TableCell>{category.name}</TableCell>
+                            {sales.map(sale => ( 
+                                <TableRow key={sale.idSale}>
+                                    <TableCell>{sale.idSale}</TableCell>
+                                    <TableCell>{sale.name}</TableCell>
+                                    <TableCell>{sale.total}</TableCell>
+                                    <TableCell>{sale.date}</TableCell>
+                                    <TableCell>{sale.user?.idUser}</TableCell>
                                     <TableCell>
-                                        <Button onClick={() => handleDeleteCategories(category.idCategory)}><FontAwesomeIcon icon={faTrash}/></Button>
-                                        <Button className={styles.iconos} onClick={() => selectconsole(category, 'Edit')}><FontAwesomeIcon icon={faPenToSquare}/></Button>
+                                        <Button onClick={() => handleDeleteSales(sale.idSale)}><FontAwesomeIcon icon={faTrash}/></Button>
+                                        <Button className={styles.iconos} onClick={() => selectconsole(sale, 'Edit')}><FontAwesomeIcon icon={faPenToSquare}/></Button>
                                     </TableCell>
                                 </TableRow>
                             ))}
@@ -182,5 +203,4 @@ const CategoryCrud = () => {
     );
 };
 
-export default CategoryCrud;
-
+export default SaleCrud;

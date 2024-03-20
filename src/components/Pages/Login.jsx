@@ -8,7 +8,9 @@ import "../../Styles/Login.css";
 
 function Login() {
     const { register, handleSubmit, formState: { errors } } = useForm();
-    const { setIsAuthen } = useAuth();
+    //Para verificar al user y setear al user
+    const { setIsAuthen, setUser } = useAuth();
+    //Para verificar al user y setear al user
     const [redirect, setRedirect] = useState(false);
     const navigate = useNavigate();
 
@@ -16,8 +18,10 @@ function Login() {
         try {
             const res = await LoginRequest(data);
             Cookies.set("token", res.data?.token);
-            console.log(res.data?.token);
+            //Para mantener al user con su token logeado
             setIsAuthen(true);
+            setUser(res.data?.user);
+             //Para mantener al user con su token logeado
             setRedirect(true);
         } catch (error) {
             console.error(error);

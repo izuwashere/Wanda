@@ -14,7 +14,6 @@
  .TitleRegister {
     display: grid;
     text-align: center;
-    padding: 15px;
     height: 10vh;
     background-color: rgba(228, 228, 228, 0.386);
     border-radius: 20px 0px 20px 0px;
