@@ -16,6 +16,7 @@ import DetailCrud from './components/Admin/DetailPages/DetailCrud';
 import SaleCrud from './components/Admin/SalePages/SaleCrud';
 import CategoryCrud from './components/Admin/categoryPages/CategoryCrud';
 import UserCrud from './components/Admin/UserPages/UserCrud';
+import OrdersPage from './components/OrdersPage';
 import "./App.css";
 
 
@@ -35,6 +36,8 @@ function App() {
               <Route path='/DetailCrud' element={<DetailCrud />} />
               <Route path='/CategoryCrud' element={<CategoryCrud />} />
               <Route path='/SaleCrud' element={<SaleCrud />} />
+              <Route path='/OrdersPage' element={<OrdersPage />}/>
+              
               <Route path='*' element={<NoFound />} />
             </Routes>
             <Footer />

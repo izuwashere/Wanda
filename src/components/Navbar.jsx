@@ -5,6 +5,7 @@ import '../Styles/Navbar.css';
 import { useNavigate } from 'react-router-dom';
 import { Button, Menu, MenuItem } from "@material-ui/core";
 
+
 const Navbar = () => {
     const { isAuthen, user, logout, removeAuthToken } = useAuth(); // Obtén el método removeAuthToken del contexto
     const navigate = useNavigate();
@@ -60,6 +61,7 @@ const Navbar = () => {
                                 <MenuItem><NavLink to="/SaleCrud">Crud venta</NavLink></MenuItem>
                                 <MenuItem><NavLink to="/CategoryCrud">Crud categoria</NavLink></MenuItem>
                                 <MenuItem><NavLink to="/DetailCrud">Crud detalle</NavLink></MenuItem>
+                                <MenuItem><NavLink to="/OrdersPage" >Factura</NavLink></MenuItem>
                               
                                 {/* <NavLink to="/UserCrud">Crud Usuario</NavLink>
                                 <NavLink to="/ProductCrud">Crud producto</NavLink>
