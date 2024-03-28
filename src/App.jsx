@@ -9,7 +9,7 @@ import Home from './components/Pages/Home';
 import Register from "./components/Pages/Register"
 import Products from "./components/Pages/Products"
 import Login from "./components/Pages/Login"
-import NoFound from './components/Pages/NoFound';
+import Nosotros from './components/Pages/Nosotros';
 
 import ProductCrud from './components/Admin/ProductPages/ProductCrud';
 import DetailCrud from './components/Admin/DetailPages/DetailCrud';
@@ -18,6 +18,7 @@ import CategoryCrud from './components/Admin/categoryPages/CategoryCrud';
 import UserCrud from './components/Admin/UserPages/UserCrud';
 import OrdersPage from './components/OrdersPage';
 import "./App.css";
+
 
 
 
@@ -37,8 +38,7 @@ function App() {
               <Route path='/CategoryCrud' element={<CategoryCrud />} />
               <Route path='/SaleCrud' element={<SaleCrud />} />
               <Route path='/OrdersPage' element={<OrdersPage />}/>
-              
-              <Route path='*' element={<NoFound />} />
+              <Route path='/Nosotros' element={<Nosotros />}/>
             </Routes>
             <Footer />
     </AuthProvider>

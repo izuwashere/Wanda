@@ -1,0 +1,36 @@
+.MajorNosotros {
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column; /* Alinear contenido verticalmente */
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    background-image: url(/RegisterImage.jpg);
+     /* Añadir espacio interno */
+    padding: 90px 0px 0px 0px;
+}
+body {
+    color: #fdfdfd;
+    text-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
+  }
+  
+  .wrapper {
+    padding: 10px;
+    width: 100%;
+    display: block;
+    text-align: center;
+    margin: 0 auto;
+  }
+  
+  .roles {
+    font-size: 30px;
+    height: 100px;
+    vertical-align: middle;
+    overflow: hidden;
+  }
+  
+  .roles div {
+    height: 100px;
+    transition: margin-top 5s ease-in-out;
+  }

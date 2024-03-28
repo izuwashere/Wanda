@@ -6,13 +6,18 @@ import { faCartShopping } from "@fortawesome/free-solid-svg-icons";
 import { Button } from "@material-ui/core";
 import { ventaMercado } from "../../Services/mercado";
 import { PDFDownloadLink } from "@react-pdf/renderer";
+import { useAuth } from '../../Context/AuthContext';
+import { useNavigate } from 'react-router-dom';
 import OrderPDF from "../OrderPDF";
+
 
 const Products = () => {
   const [products, setProducts] = useState([]);
   const [cart, setCart] = useState([]); // Estado para el carrito de compras
   const [total, setTotal] = useState(0); // Estado para el total a pagar
   const [showCart, setShowCart] = useState(false); // Estado para controlar la visibilidad del carrito
+  const { isAuthen } = useAuth(); 
+  const navigate = useNavigate();
 
   useEffect(() => {
     async function fetchProduct() {
@@ -45,38 +50,30 @@ const Products = () => {
     setShowCart(false);
   };
 
-  // // Función para procesar el pago con MercadoPago
-  // const processPayment = () => {
-  //   // Crear un nuevo array con la información necesaria para MercadoPago (nombre y precio)
-  //   const itemsToPay = cart.map((item) => ({
-  //     idProduct: item.idProduct,
-  //     name: item.name,
-  //     idCategory: item.category.idCategory,
-  //     price: item.price,
-  //     description: item.description
-  //   }));
-
-  //   console.log(itemsToPay);
-  // };
   const processPayment = async () => {
     try {
       if (cart.length > 0) {
-        const itemsToPay = cart.map((item) => ({
-          idProduct: item.idProduct,
-          name: item.name,
-          idCategory: item.category.idCategory,
-          price: item.price,
-          description: item.description,
-        }));
+            const itemsToPay = cart.map((item) => ({
+              idProduct: item.idProduct,
+              name: item.name,
+              idCategory: item.category.idCategory,
+              price: item.price,
+              description: item.description
+            }));
         const response = await ventaMercado(itemsToPay);
-        window.location.href = response.data;
+        window.location.href = response.data; // Redirecciona a la página de pago de Mercado Pago
       } else {
-        console.error("Error: El carrito está vacío");
+        console.error('Error: El carrito está vacío');
       }
     } catch (error) {
-      console.error("Error procesando el pago:", error);
-    }
+      console.error('Error procesando el pago:', error);
+    }
+    };
+
+  const redirectToLogin = () => {
+    navigate('/login');
   };
+
 
   return (
     <div className="ContainerProductsMajor">
@@ -95,9 +92,17 @@ const Products = () => {
               <p>{product.description}.</p>
               <h1>${product.price}</h1>
               {/* Al hacer clic en el botón, se llama a la función addToCart con el producto como argumento */}
-              <button onClick={() => addToCart(product)}>
-                Agregar al carrito
-              </button>
+              {
+                isAuthen ? (
+                  <button onClick={() => addToCart(product)}>
+                    Agregar al carrito
+                  </button>
+                ) : (
+                  <button onClick={redirectToLogin}>
+                    Iniciar sesión para comprar
+                  </button>
+                )
+              }
             </div>
           </div>
         ))}
@@ -119,7 +124,7 @@ const Products = () => {
                   <img
                     src={`data:image/jpeg;base64,${item.images}`}
                     alt={item.name}
-                    style={{ width: "30%" }}
+                    style={{ width: "100%" }}
                   />
                 </div>
                 <div>{item.name}</div>
@@ -138,7 +143,7 @@ const Products = () => {
           </Button>
           {/* Botón para procesar el pago */}
           <Button variant="contained" color="primary" onClick={processPayment}>
-            Pagar con MercadoPago
+            PAGAR CON MERCADO PAGO
           </Button>
           <PDFDownloadLink
             document={<OrderPDF cart={cart}/>}
@@ -151,7 +156,7 @@ const Products = () => {
                 </button>
               ) : (
                 <button className="pdf-download bg-morado2">
-                  Mostrar productos en pdf
+                  MOSTRAR PRODUCTOS <br /> DE FACTURA PDF
                 </button>
               )
             }
@@ -162,62 +167,4 @@ const Products = () => {
   );
 };
 
-export default Products;
-
-// import React, { useEffect, useState } from "react";
-// import "../../Styles/Products.css"
-// import { listProduct } from "../../Services/product";
-
-// const Products = () => {
-//    const [products, setProducts] = useState([]);
-//    const [allProducts, setAllProducts] =useState([])
-//    useEffect (()=>{
-//       async function fetchProduct() {
-//          try{
-//             const response = await listProduct();
-//             setProducts(response.data);
-//          } catch (error){
-//             console.error("Error al listar productos", error)
-//          }
-//       }
-//       fetchProduct();
-//    },[]);
-
-//  return(
-
-//    <div className="ContainerProductsMajor">
-//       <div className="ContainerProduct">
-//          {products.map((product) => (
-//             <div className="card">
-//             <div className="photo">
-//                <img src={`data:image/jpeg;base64,${product.images}`} alt={product.name}/>
-//             </div>
-//             <div className="description">
-//                <h2>{product.name}</h2>
-//                <h3>{product.category.name}</h3>
-//                <p>{product.description}.</p>
-//                <h1>${product.price}</h1>
-//                <button>Agregar al carrito</button>
-//             </div>
-//          </div>
-//          ))}
-//       </div>
-//    </div>
-
-//  )
-// }
-// export default Products;
-
-{
-  /* <div className="Cards">
-<div className="img">
-   <img src={`data:image/jpeg;base64,${product.images}`} alt={product.name} style={{ width:100}}/>
-</div>
-<div className="Information">
-   <h2>{product.name}</h2>
-   <h1>{product.prices}</h1>
-   <h4>{product.category.name}</h4>
-   <p>{product.description}</p>
-</div>
-</div> */
-}
+export default Products

@@ -1,6 +1,6 @@
 .ContainerLoginMajor{
     width: 100%;
-    height: 100vh;
+    min-height: 100vh;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -66,4 +66,31 @@
 
 .FormLogin form h5:hover {
     color: rgba(0, 187, 255, 0.495);
+}
+@media screen and (max-width: 768px) {
+    .ContainerLoginSecondary {
+        width: 90%; /* Ajustar el ancho del contenedor secundario para que se ajuste al ancho de la pantalla */
+        height: auto; /* Altura automática para adaptarse al contenido */
+    }
+    
+    .TitleLogin {
+        height: auto; /* Altura automática para adaptarse al contenido */
+        border-radius: 20px; /* Eliminar la especificación de bordes individualmente */
+    }
+    
+    .FormLogin {
+        height: auto; /* Altura automática para adaptarse al contenido */
+    }
+
+    .FormLogin form input {
+        width: 90%; /* Ajustar el ancho del input al 90% del contenedor */
+        max-width: 300px; /* Limitar el ancho máximo del input */
+        margin: 15px auto; /* Centrar horizontalmente con un margen */
+    }
+
+    .FormLogin form button {
+        width: 90%; /* Ajustar el ancho del botón al 90% del contenedor */
+        max-width: 300px; /* Limitar el ancho máximo del botón */
+        margin: 10px auto; /* Centrar horizontalmente con un margen */
+    }
 }

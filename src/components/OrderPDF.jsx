@@ -33,10 +33,13 @@ const styles = StyleSheet.create({
   table: {
     width: "100%",
     border: "1px solid #000000",
+    flexDirection: "row",
+    flexWrap: "wrap",
   },
   tableRow: {
     flexDirection: "row",
     borderBottom: "1px solid #000000",
+    flex: "1 0 auto",
   },
   tableCellHeader: {
     padding: 8,
@@ -44,18 +47,20 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     backgroundColor: "#f2f2f2",
     textAlign: "center",
+    width: "20%",
   },
   tableCell: {
     padding: 5,
     fontSize: 10,
     textAlign: "center",
+    width: "20%",
   },
 });
 
 const OrderPDF = ({ cart }) => (
   <Document>
     <Page size="A4" style={styles.page}>
-      <Text style={styles.title}>Tu carrito</Text>
+      <Text style={styles.title}>Factura Carrito</Text>
       <View style={styles.section}>
         <View style={styles.table}>
           <View style={styles.tableRow}>
@@ -65,7 +70,7 @@ const OrderPDF = ({ cart }) => (
             <Text style={styles.tableCellHeader}>Descripción</Text>
             <Text style={styles.tableCellHeader}>Precio</Text>
           </View>
-          {cart.map((item, index) => (
+          {cart?.map((item, index) => (
             <View key={index} style={styles.tableRow}>
               <Text style={styles.tableCell}>{index + 1}</Text>
               <Text style={styles.tableCell}>{item.name}</Text>
@@ -81,4 +86,5 @@ const OrderPDF = ({ cart }) => (
 );
 
 export default OrderPDF;
+
 

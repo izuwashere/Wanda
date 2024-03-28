@@ -52,7 +52,7 @@ const DetailCrud = () => {
         try {
             const res = await createDetail(consoleSelect);
             setAddedCategories(prevAddedCategories => [...prevAddedCategories, consoleSelect]);
-            setConsoleSelect({ amount: '', idProduct:'',idSale:'' });
+            setConsoleSelect({ amount: '', idProduct:'', idSale:'' });
             openCloseModalInsert(); // Cerrar el modal después de insertar el detalle
             return res;
         } catch (error) {
@@ -160,7 +160,7 @@ const DetailCrud = () => {
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        {details.map(detail => ( 
+                        {details?.map(detail => ( 
                             <TableRow key={detail.idDetail}>
                                 <TableCell>{detail.idDetail}</TableCell>
                                 <TableCell>{detail.amount}</TableCell>

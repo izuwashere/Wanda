@@ -110,7 +110,9 @@ const CategoryCrud = () => {
 
 
     const selectconsole=(category, casee)=>{
-        setConsoleSelect(category);
+        setConsoleSelect({
+            ...category
+        });
         setIdSelect(category.idCategory);
         casee === 'Edit' && setModalEdit(true)
     }

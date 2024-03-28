@@ -30,8 +30,8 @@ const Navbar = () => {
             <img src="/logols.png" alt="" />
             <ul className="left-list">
                 <ul className="lista-1">
-                    <li><NavLink to="/Products">Productos</NavLink></li>
-                    <li><NavLink to="#">Mi carrito</NavLink></li>
+                    <li><NavLink to="/Products">PRODUCTOS</NavLink></li>
+                    <li><NavLink to="/Nosotros">NOSOTROS</NavLink></li>
                 </ul>
             </ul>
             {isAuthen ? (
@@ -44,8 +44,11 @@ const Navbar = () => {
                                 aria-haspopup="true"
                                 aria-expanded={open ? 'true' : undefined}
                                 onClick={handleClick}
+                                style={{  textShadow: "0 0 5px rgba(255, 255, 255, 0.5)",
+                                color: "rgb(255, 255, 255)",
+                                fontSize: 16}}
                             >
-                                Dashboard
+                                CRUDS
                             </Button>
                             <Menu
                                 id="basic-menu"
@@ -61,7 +64,7 @@ const Navbar = () => {
                                 <MenuItem><NavLink to="/SaleCrud">Crud venta</NavLink></MenuItem>
                                 <MenuItem><NavLink to="/CategoryCrud">Crud categoria</NavLink></MenuItem>
                                 <MenuItem><NavLink to="/DetailCrud">Crud detalle</NavLink></MenuItem>
-                                <MenuItem><NavLink to="/OrdersPage" >Factura</NavLink></MenuItem>
+                                {/* <MenuItem><NavLink to="/OrdersPage" >Factura</NavLink></MenuItem> */}
                               
                                 {/* <NavLink to="/UserCrud">Crud Usuario</NavLink>
                                 <NavLink to="/ProductCrud">Crud producto</NavLink>
@@ -72,13 +75,13 @@ const Navbar = () => {
                         </ul>
                     )}
                     <ul className="right-list">
-                        <li><NavLink to="/" onClick={() => removeAuthToken()}>Cerrar sesión</NavLink></li>
+                        <li><NavLink to="/" onClick={() => removeAuthToken()}>CERRAR SESIÓN</NavLink></li>
                     </ul>
                 </>
             ) : (
                 <ul className="right-list">
-                    <li><NavLink to="/Login">Inicio de sesión</NavLink></li>
-                    <li><NavLink to="/Register">Registrarse</NavLink></li>
+                    <li><NavLink to="/Login">INICIO DE SESIÓN</NavLink></li>
+                    <li><NavLink to="/Register">REGISTRARSE</NavLink></li>
                 </ul>
             )}
         </nav>

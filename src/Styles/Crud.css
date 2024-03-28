@@ -7,9 +7,11 @@
   padding: 7rem 0;
   /* esta clase dejala quieta  */
 }
-
+.table{
+  max-width: 80vh;
+}
 thead tr {
-  background-color: #136d40;
+  background-color: #73b57e;
   padding: .6rem;
   border-radius: 5px 5px 0 0;
 }

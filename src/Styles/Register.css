@@ -48,7 +48,6 @@
     font-family: "IBM Plex Sans", sans-serif;
     font-size: medium;
 }
-
 .FormRegister form button {
     padding: 10px;
     margin: 5px;
@@ -64,4 +63,31 @@
 
 .FormRegister form h5:hover {
     color: rgba(0, 187, 255, 0.495);
+}
+@media screen and (max-width: 768px) {
+    .ContainerRegisterSecondary {
+        width: 90%; /* Ajustar el ancho del contenedor secundario para que se ajuste al ancho de la pantalla */
+        height: auto; /* Altura automática para adaptarse al contenido */
+    }
+    
+    .TitleRegister {
+        height: auto; /* Altura automática para adaptarse al contenido */
+        border-radius: 20px; /* Eliminar la especificación de bordes individualmente */
+    }
+    
+    .FormRegister {
+        height: auto; /* Altura automática para adaptarse al contenido */
+    }
+
+    .FormRegister form input {
+        width: 90%; /* Ajustar el ancho del input al 90% del contenedor */
+        max-width: 300px; /* Limitar el ancho máximo del input */
+        margin: 5px auto; /* Centrar horizontalmente con un margen */
+    }
+
+    .FormRegister form button {
+        width: 90%; /* Ajustar el ancho del botón al 90% del contenedor */
+        max-width: 300px; /* Limitar el ancho máximo del botón */
+        margin: 5px auto; /* Centrar horizontalmente con un margen */
+    }
 }

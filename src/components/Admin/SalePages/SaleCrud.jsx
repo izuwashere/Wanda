@@ -133,7 +133,7 @@ const SaleCrud = () => {
             <br/>
             <TextField name="date" className={styles.inputMaterial} label="Fecha de venta" onChange={handleChange} value={consoleSelect && consoleSelect.date}/>
             <br/>
-            <TextField name="total" className={styles.inputMaterial} label="Id del usuario" onChange={handleChange} value={consoleSelect && consoleSelect.total}/>
+            <TextField name="total" className={styles.inputMaterial} label="Total" onChange={handleChange} value={consoleSelect && consoleSelect.total}/>
             <br />
             <TextField name="total" className={styles.inputMaterial} label="Id del usuario" onChange={handleChange} value={consoleSelect && consoleSelect.idUser}/>
             <br />

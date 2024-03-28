@@ -14,12 +14,14 @@
 
  }
 
- .ContainerProduct{
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    justify-content: space-between;
-    max-width: 1200px;
- }
+ .ContainerProduct {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  justify-content: space-between;
+  max-width: 1200px;
+}
+
+
  .card {
     width: 95%;
     height: 55vh;
@@ -39,7 +41,7 @@
       float: left;
       img { 
         width: 100%;
-        height: 100%;
+        height: 18rem;
         object-fit: cover;
       }
     }
@@ -48,6 +50,7 @@
        padding: 30px;
        float: left;
        width: 50%;
+       font: #000;
       
        
        h1 {
@@ -116,15 +119,16 @@
   
   .cart {
     position: fixed;
-    top: 50px;
-    right: 20px;
-    width: 300px;
+    top: 100px;
+    right: 0px;
+    width: 311px;
     background-color: #ffffff;
     border: 1px solid #ccc;
     border-radius: 5px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     padding: 20px;
     z-index: 999;
+    color: #000;
   }
   
   .cart h2 {
@@ -186,3 +190,20 @@
     margin-top: 20px;
   }
   
+  @media screen and (max-width: 768px) {
+    .ContainerProduct {
+        grid-template-columns: repeat(1, 1fr);
+    }
+    .card {
+        height: auto; /* Altura automática para adaptarse al contenido */
+    }
+    .card .photo {
+        width: 100%; /* Ajustar el ancho de la foto al 100% del contenedor */
+        float: none; /* Eliminar la flotación */
+        padding: 0; /* Eliminar el relleno */
+    }
+    .card .description {
+        width: 100%; /* Ajustar el ancho del texto al 100% del contenedor */
+        float: none; /* Eliminar la flotación */
+    }
+}

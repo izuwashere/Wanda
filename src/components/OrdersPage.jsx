@@ -1,13 +1,14 @@
 import React, { useState } from 'react';
 import { PDFDownloadLink } from '@react-pdf/renderer';
-import OrderPDF from './OrderPDF'; 
+import OrderPDF from './OrderPDF';
+import '../Styles/OrderPages.css' 
 
 const OrdersPage = ({ orders }) => {
   
   const [ordersData] = useState(orders);
 
   return (
-    <div>
+    <div className='ContainerLoginMajor'>
       {/* Botón para descargar el PDF */}
       <PDFDownloadLink document={<OrderPDF orders={ordersData} />} fileName="lista_ordenes.pdf">
         {({ blob, url, loading, error }) =>
