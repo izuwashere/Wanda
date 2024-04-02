@@ -4,6 +4,7 @@ import { Table, TableContainer, TableHead, TableCell, TableBody, TableRow, Modal
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPenToSquare, faTrash } from '@fortawesome/free-solid-svg-icons';
 import { makeStyles } from '@material-ui/core/styles'; 
+import { useForm } from 'react-hook-form';
 import "../.././../Styles/Crud.css";
 
 const useStyles = makeStyles((theme) => ({
@@ -28,6 +29,13 @@ const useStyles = makeStyles((theme) => ({
 
 
 const DetailCrud = () => {
+    const {
+        handleSubmit,
+        reset,
+        register,
+        formState: { errors },
+      } = useForm();
+
     const styles= useStyles();
     const [details, setDetails] = useState([]);
     const [modalInsert, setModalInsert] = useState(false);
@@ -93,19 +101,21 @@ const DetailCrud = () => {
     const handleDeleteDetail = async (id) => {
         try {
             const res = await deleteDetail(id);
-            window.location.reload();
-            return res
+            fetchData();
+            console.log('Detalle eliminado con éxito:', res);
         } catch (error) {
-            console.log('Error al eliminar un producto')
+            console.error('Error al eliminar el detalle:', error);
+            // Aquí puedes mostrar un mensaje de error al usuario o realizar alguna otra acción de manejo de errores.
         }
-    }
+    }    
 
     //Editar Categoria
-    const handleModify = async () => {
+    const handleModify = async (data) => {
         try {
-            await updateDetail(idSelect, consoleSelect);
+            const res = await updateDetail(idSelect, data);
             fetchData();
             openCloseModalEdit();
+            return res;
         } catch (error) {
                 console.log(error);
         }
@@ -123,16 +133,33 @@ const DetailCrud = () => {
     
     const bodyEdit = (
         <div className={styles.modal}>
+            <form onSubmit={handleSubmit(handleModify)}>
             <h3>Editar detalle</h3>
-            <TextField name="amount" className={styles.inputMaterial} label="Cantidad" onChange={handleChange} value={consoleSelect && consoleSelect.amount}/>
+            <TextField 
+            name="amount" 
+            className={styles.inputMaterial} 
+            label="Cantidad"
+            {...register("amount", {  required: false })} 
+            defaultValue={consoleSelect && consoleSelect.amount}/>
             <br />
-            <TextField name="idProduct" className={styles.inputMaterial} label="Id producto" onChange={handleChange} value={consoleSelect && consoleSelect.idProduct}/>
+            <TextField 
+            name="idProduct"
+            className={styles.inputMaterial}
+            label="Id producto"
+            {...register("idProduct", {  required: false })} 
+            defaultValue={consoleSelect && consoleSelect.idProduct}/>
             <br />
-            <TextField name="idSale" className={styles.inputMaterial} label="Id venta" onChange={handleChange} value={consoleSelect && consoleSelect.idSale}/>
+            <TextField 
+            name="idSale"
+            className={styles.inputMaterial}
+            label="Id venta" 
+            {...register("idSale", {  required: false })}  
+            defaultValue={consoleSelect && consoleSelect.idSale}/>
             <div align="right">
-                <Button color='primary' onClick={handleModify}>Editar</Button>
+                <Button color='primary' type="submit">Editar</Button>
                 <Button onClick={() => openCloseModalEdit()}>Cancelar</Button>
             </div>
+            </form>
         </div>
     );
 

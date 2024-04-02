@@ -4,6 +4,7 @@ import { Table, TableContainer, TableHead, TableCell, TableBody, TableRow, Modal
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPenToSquare, faTrash } from '@fortawesome/free-solid-svg-icons';
 import { makeStyles } from '@material-ui/core/styles'; 
+import { useForm } from 'react-hook-form';
 import "../../../Styles/Crud.css";
 
 const useStyles = makeStyles((theme) => ({
@@ -27,6 +28,13 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const SaleCrud = () => {
+    const {
+        handleSubmit,
+        reset,
+        register,
+        formState: { errors },
+      } = useForm();
+
     const styles= useStyles();
     const [sales, setSales] = useState([]);
     const [modalInsert, setModalInsert] = useState(false);
@@ -106,16 +114,16 @@ const SaleCrud = () => {
     };
     
     //Editar Categoria
-    const handleModify = async () => {
-    try {
-        await updateSale(idSelect, consoleSelect);
-        fetchData();
-        openCloseModalEdit();
-    } catch (error) {
+    const handleModify = async (data) => {
+        try {
+            const res = await updateSale(idSelect, data);
+            fetchData();
+            openCloseModalEdit();
+            return res;
+        } catch (error) {
             console.log(error);
-    }
+        }
     };
-
 
     const selectconsole=(sale, casee)=>{
         setConsoleSelect({
@@ -128,17 +136,41 @@ const SaleCrud = () => {
    
     const bodyEdit = (
         <div className={styles.modal}>
+            <form onSubmit={handleSubmit(handleModify)}>
             <h3>Editar categoría</h3>
-            <TextField name="name" className={styles.inputMaterial} label="Nombre de la venta" onChange={handleChange} value={consoleSelect && consoleSelect.name}/>
+            <TextField 
+            name="name" 
+            className={styles.inputMaterial} 
+            label="Nombre de la venta"
+            {...register("name", {  required: false })} 
+            defaultValue={consoleSelect && consoleSelect.name}/>
             <br/>
-            <TextField name="date" className={styles.inputMaterial} label="Fecha de venta" onChange={handleChange} value={consoleSelect && consoleSelect.date}/>
+            <TextField 
+            name="date" 
+            className={styles.inputMaterial} 
+            label="Fecha de venta" 
+            {...register("date", {  required: false })}
+            defaultValue={consoleSelect && consoleSelect.date}/>
             <br/>
-            <TextField name="total" className={styles.inputMaterial} label="Total" onChange={handleChange} value={consoleSelect && consoleSelect.total}/>
+            <TextField 
+            name="total"
+            className={styles.inputMaterial}
+            label="Total"
+            {...register("total", {  required: false })} 
+            defaultValue={consoleSelect && consoleSelect.total}/>
             <br />
-            <TextField name="total" className={styles.inputMaterial} label="Id del usuario" onChange={handleChange} value={consoleSelect && consoleSelect.idUser}/>
+            <TextField
+            name="idUser" 
+            className={styles.inputMaterial}
+            label="Id del usuario"
+            {...register("idUser", {  required: false })}
+            value={consoleSelect && consoleSelect.idUser}/>
             <br />
-                <Button color='primary' onClick={handleModify}>Editar</Button>
+            <div>
+                <Button color='primary' type="submit">Editar</Button>
                 <Button onClick={() => openCloseModalEdit()}>Cancelar</Button>
+            </div>
+            </form>
             </div>
     );
 
