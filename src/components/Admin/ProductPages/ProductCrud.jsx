@@ -1,3 +1,4 @@
+// @ts-nocheck
 import React, { useState, useEffect } from "react";
 import {
   createProduct,
@@ -174,10 +175,20 @@ const CategoryCrud = () => {
     </div>
   );
 
-  const handleModify = async (setIdSelect, data) => {
+  const handleModify = async (data) => {
     try {
-      await updateUser(setIdSelect, data);
+      const formData = new FormData();
+      formData.append("name", data.name);
+      formData.append("idCategory", data.idCategory);
+      formData.append("description", data.description);
+      formData.append("price", data.price);
+      if(data.images.length > 0){
+        formData.append("images", data.images[0]); // Agregar el archivo correctamente
+      }
+      const rest = await updateProduct(idSelect, formData);
+      console.log(rest);
       fetchData();
+      openCloseModalEdit();
     } catch (error) {
       console.log(error);
     }
@@ -215,7 +226,7 @@ const bodyEdit = (
         name="images"
         className={styles.inputMaterial}
         {...register("images", { required: false })}
-        defaultValue={consoleSelect && consoleSelect.images}
+
       />
       <br />
       <TextField

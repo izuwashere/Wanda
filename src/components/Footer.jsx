@@ -30,7 +30,7 @@ const Fotoer = () => {
               </div>
           </div>
           <div className="grupo-2">
-            <small>&Copy; 2024 <b>Slee Dv</b> - Todos los derechos reservados</small>
+            <small>&Copy; 2024 <b>Life Seed</b> - Todos los derechos reservados</small>
           </div>
         </footer> 
   )

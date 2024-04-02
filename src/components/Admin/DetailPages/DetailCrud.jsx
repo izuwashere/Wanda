@@ -32,7 +32,7 @@ const DetailCrud = () => {
     const [details, setDetails] = useState([]);
     const [modalInsert, setModalInsert] = useState(false);
     const [modalEdit, setModalEdit] = useState(false);
-    const [addedSetails, setAddedDetails] = useState([]);
+    const [addedDetails, setAddedDetails] = useState([]);
     const [consoleSelect, setConsoleSelect] = useState({
         amount: '', 
         idProduct:'',
@@ -51,9 +51,10 @@ const DetailCrud = () => {
     const handleAgregarDatail = async () => {
         try {
             const res = await createDetail(consoleSelect);
-            setAddedCategories(prevAddedCategories => [...prevAddedCategories, consoleSelect]);
+            setAddedDetails(prevAddedDetails => [...prevAddedDetails, consoleSelect]);
             setConsoleSelect({ amount: '', idProduct:'', idSale:'' });
-            openCloseModalInsert(); // Cerrar el modal después de insertar el detalle
+            openCloseModalInsert(); 
+            fetchData();
             return res;
         } catch (error) {
             console.error('Error al agregar la categoría: ', error);
@@ -75,15 +76,16 @@ const DetailCrud = () => {
     );
 
     // Listar detalles
+    const fetchData = async () => {
+        try {
+            const response = await listDetail();
+            setDetails(response.data);
+        } catch (error) {
+            console.log('Error al listar los detalle:', error);
+        }
+    };
+    
     useEffect(() => {
-        const fetchData = async () => {
-            try {
-                const response = await listDetail();
-                setDetails(response.data);
-            } catch (error) {
-                console.log('Error al listar los detalle:', error);
-            }
-        };
         fetchData();
     }, []);
 
