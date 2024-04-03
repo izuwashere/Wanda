@@ -7,6 +7,8 @@ import {
   StyleSheet,
   Font,
 } from "@react-pdf/renderer";
+import { useRef } from "react";
+import { useDownloadExcel } from "react-export-table-to-excel";
 
 // Define la fuente a utilizar (opcional)
 Font.register({
@@ -57,34 +59,41 @@ const styles = StyleSheet.create({
   },
 });
 
-const OrderPDF = ({ cart }) => (
-  <Document>
-    <Page size="A4" style={styles.page}>
-      <Text style={styles.title}>Factura Carrito</Text>
-      <View style={styles.section}>
-        <View style={styles.table}>
-          <View style={styles.tableRow}>
-            <Text style={styles.tableCellHeader}>Index</Text>
-            <Text style={styles.tableCellHeader}>Nombre</Text>
-            <Text style={styles.tableCellHeader}>Categoría</Text>
-            <Text style={styles.tableCellHeader}>Descripción</Text>
-            <Text style={styles.tableCellHeader}>Precio</Text>
-          </View>
-          {cart?.map((item, index) => (
-            <View key={index} style={styles.tableRow}>
-              <Text style={styles.tableCell}>{index + 1}</Text>
-              <Text style={styles.tableCell}>{item.name}</Text>
-              <Text style={styles.tableCell}>{item.category.name}</Text>
-              <Text style={styles.tableCell}>{item.description}</Text>
-              <Text style={styles.tableCell}>${item.price.toFixed(2)}</Text>
+const OrderPDF = ({ cart }) => {
+  const tableRef = useRef(null);
+  const { onDownload } = useDownloadExcel({
+    currentTableRef: tableRef.current,
+    filename: 'Users table',
+    sheet: 'Users'
+  });
+
+  return (
+    <Document>
+      <Page size="A4" style={styles.page}>
+        <Text style={styles.title}>Factura Carrito</Text>
+        <View style={styles.section}>
+          <View style={styles.table}>
+            <View style={styles.tableRow}>
+              <Text style={styles.tableCellHeader}>Index</Text>
+              <Text style={styles.tableCellHeader}>Nombre</Text>
+              <Text style={styles.tableCellHeader}>Categoría</Text>
+              <Text style={styles.tableCellHeader}>Descripción</Text>
+              <Text style={styles.tableCellHeader}>Precio</Text>
             </View>
-          ))}
+            {cart?.map((item, index) => (
+              <View key={index} style={styles.tableRow}>
+                <Text style={styles.tableCell}>{index + 1}</Text>
+                <Text style={styles.tableCell}>{item.name}</Text>
+                <Text style={styles.tableCell}>{item.category.name}</Text>
+                <Text style={styles.tableCell}>{item.description}</Text>
+                <Text style={styles.tableCell}>${item.price.toFixed(2)}</Text>
+              </View>
+            ))}
+          </View>
         </View>
-      </View>
-    </Page>
-  </Document>
-);
+      </Page>
+    </Document>
+  );
+};
 
 export default OrderPDF;
-
-

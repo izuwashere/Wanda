@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React, { useState, useEffect } from "react";
 import {
   createProduct,
@@ -23,6 +22,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import "../../../Styles/Crud.css";
 
 import { useForm } from "react-hook-form";
+import ExcelJS from "exceljs";
 
 const useStyles = makeStyles((theme) => ({
   modal: {
@@ -56,7 +56,6 @@ const CategoryCrud = () => {
   const [products, setProducts] = useState([]);
   const [modalInsert, setModalInsert] = useState(false);
   const [modalEdit, setModalEdit] = useState(false);
-  const [addedProducts, setAddedProducts] = useState([]);
   const [consoleSelect, setConsoleSelect] = useState({
     name: "",
     idCategory: "",
@@ -106,10 +105,6 @@ const CategoryCrud = () => {
       formData.append("price", data.price);
 
       const res = await createProduct(formData);
-      setAddedProducts((prevAddedProducts) => [
-        ...prevAddedProducts,
-        consoleSelect,
-      ]);
       setConsoleSelect({
         name: "",
         idCategory: "",
@@ -264,12 +259,49 @@ const bodyEdit = (
     reset();
   };
 
+  const handleDownloadExcel = () => {
+    const workbook = new ExcelJS.Workbook();
+    const worksheet = workbook.addWorksheet('Productos');
+
+    worksheet.columns = [
+      { header: 'ID Producto', key: 'idProduct' },
+      { header: 'Nombre', key: 'name' },
+      { header: 'Categoría', key: 'category' },
+      { header: 'Descripción', key: 'description' },
+      { header: 'Precio', key: 'price' }
+    ];
+
+    products.forEach((product) => {
+      worksheet.addRow({
+        idProduct: product.idProduct,
+        name: product.name,
+        category: product.category.name,
+        description: product.description,
+        price: product.price
+      });
+    });
+
+    workbook.xlsx.writeBuffer().then((buffer) => {
+      const blob = new Blob([buffer], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'productos.xlsx';
+      document.body.appendChild(a);
+      a.click();
+      URL.revokeObjectURL(url);
+      document.body.removeChild(a);
+    }).catch((error) => {
+      console.error('Error al generar el archivo Excel:', error);
+    });
+  };
 
   return (
     <div className="containerUCMajor">
       <div className="tables">
         <br />
         <Button onClick={openCloseModalInsert}>Insertar</Button>
+        <Button onClick={handleDownloadExcel}>Descargar Excel</Button>
         <TextField
           label="Buscar producto"
           value={searchTerm}
@@ -338,3 +370,4 @@ const bodyEdit = (
 };
 
 export default CategoryCrud;
+
